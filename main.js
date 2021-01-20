@@ -16,6 +16,7 @@ const fetchEntries = () => {
 const displayEntries = (entries) => {
   entries.forEach(entry => {
     entryInfo(entry)
+    getAllCalories(entries)
   })
 }
 
@@ -41,3 +42,26 @@ const entryInfo = (entry) => {
   `
   container.prepend(li)
 }
+
+const getAllCalories = (entries) => {
+  let total = 0
+  entries.map(entry => {
+    total += entry.calorie
+  })
+  console.log(total)
+}
+
+document.addEventListener('input', (e) => {
+  if(e.target.className === 'uk-input'){
+    let calories = e.target.value
+  } else if (e.target.className === 'uk-textarea') {
+    let note = e.target.value
+  }
+})
+
+document.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if(e.target.id === 'new-calorie-form'){
+    console.log('hi')
+  }
+})
