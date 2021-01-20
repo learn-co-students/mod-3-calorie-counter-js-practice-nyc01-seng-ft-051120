@@ -16,7 +16,7 @@ const fetchEntries = () => {
 const displayEntries = (entries) => {
   entries.forEach(entry => {
     entryInfo(entry)
-    getAllCalories(entries)
+    // getAllCalories(entries)
   })
 }
 
@@ -43,25 +43,45 @@ const entryInfo = (entry) => {
   container.prepend(li)
 }
 
-const getAllCalories = (entries) => {
-  let total = 0
-  entries.map(entry => {
-    total += entry.calorie
-  })
-  console.log(total)
-}
+// const getAllCalories = (entries) => {
+//   let total = 0
+//   entries.map(entry => {
+//     total += entry.calorie
+//   })
+//   console.log(total)
+// }
 
-document.addEventListener('input', (e) => {
-  if(e.target.className === 'uk-input'){
-    let calories = e.target.value
-  } else if (e.target.className === 'uk-textarea') {
-    let note = e.target.value
-  }
+document.addEventListener('click', (e) => {
+  console.log(e.target)
+
 })
 
 document.addEventListener('submit', (e) => {
   e.preventDefault();
+  let form = document.getElementById('new-calorie-form')
   if(e.target.id === 'new-calorie-form'){
-    console.log('hi')
+    let input = document.getElementById('calorie-input')
+    let calorie = input.value
+    let textArea = document.querySelector('.uk-textarea')
+    let note = textArea.value
+    fetch(API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accepts': 'application/json'
+      },
+      body: JSON.stringify({
+        calorie,
+        note
+      })
+    })
+    .then(res => res.json())
+    .then(entry => {
+      entryInfo(entry)
+      form.reset()
+    })
+
   }
+
+
 })
