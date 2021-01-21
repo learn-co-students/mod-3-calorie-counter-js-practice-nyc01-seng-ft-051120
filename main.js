@@ -35,8 +35,8 @@ const entryInfo = (entry) => {
         </div>
       </div>
       <div class="list-item-menu">
-        <a class="edit-button" uk-icon="icon: pencil" uk-toggle="target: #edit-form-container"></a>
-        <a class="delete-button" uk-icon="icon: trash"></a>
+        <a id=${entry.id} class="edit-button" uk-icon="icon: pencil" uk-toggle="target: #edit-form-container"></a>
+        <a id=${entry.id} class="delete-button" uk-icon="icon: trash"></a>
       </div>
     </li>
   `
@@ -52,8 +52,18 @@ const entryInfo = (entry) => {
 // }
 
 document.addEventListener('click', (e) => {
-  console.log(e.target)
-
+  if(e.target.parentNode.className === 'delete-button uk-icon'){
+    let toDelete = e.target.parentNode.parentNode.parentNode.parentNode
+    fetch(`http://localhost:3000/api/v1/calorie_entries/${e.target.parentNode.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(() => {
+      toDelete.remove()
+    })
+  }
 })
 
 document.addEventListener('submit', (e) => {
