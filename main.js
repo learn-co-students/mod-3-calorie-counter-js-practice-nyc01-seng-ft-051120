@@ -16,7 +16,7 @@ const fetchEntries = () => {
 const displayEntries = (entries) => {
   entries.forEach(entry => {
     entryInfo(entry)
-    // getAllCalories(entries)
+    getAllCalories(entries)
   })
 }
 
@@ -43,13 +43,14 @@ const entryInfo = (entry) => {
   container.prepend(li)
 }
 
-// const getAllCalories = (entries) => {
-//   let total = 0
-//   entries.map(entry => {
-//     total += entry.calorie
-//   })
-//   console.log(total)
-// }
+const getAllCalories = (entries) => {
+  let progress = document.getElementById('progress')
+  let total = 0
+  entries.map(entry => {
+    total += entry.calorie
+  })
+  progress.value = total
+}
 
 document.addEventListener('click', (e) => {
   if(e.target.parentNode.className === 'delete-button uk-icon'){
@@ -63,6 +64,9 @@ document.addEventListener('click', (e) => {
     .then(() => {
       toDelete.remove()
     })
+  }
+  else if(e.target.parentNode.className === 'edit-button uk-icon'){
+    editSubmit(e.target.parentNode.id)
   }
 })
 
@@ -90,8 +94,28 @@ document.addEventListener('submit', (e) => {
       entryInfo(entry)
       form.reset()
     })
-
   }
-
-
 })
+
+const editSubmit = (id) => {
+  document.addEventListener('submit', () => {
+      if(e.target.id === 'edit-calorie-form'){
+      let editInput = document.getElementById('edit-calorie')
+      let calorie = editInput.value
+      let editNote = document.getElementById('edit-note')
+      let note = editNote.value
+      console.log(e)
+      fetch(`http://localhost:3000/api/v1/calorie_entries/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accepts': 'application.json'
+        },
+        body: JSON.stringify({
+          calorie,
+          note
+        })
+      })
+    }
+  })
+}
