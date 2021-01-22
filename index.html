@@ -46,7 +46,7 @@
           —
           <span id="higher-bmr-range">700</span><em class="uk-text-meta">kcal</em>
         </h3>
-        <progress class="uk-progress" value="0" max="0"
+        <progress id='progress' class="uk-progress" value="0" max="5000"
           uk-tooltip="title: Keep bar below 100% to lose weight, above 100% to gain weight."></progress>
       </div>
     </div>
@@ -57,17 +57,17 @@
         <h3>Record calorie intake:</h3>
         <div>
           <div class="uk-margin-small">
-            <input type="number" class="uk-input" min="0" placeholder="Calories (kcal)">
+            <input id='calorie-input' type="number" class="uk-input" min="0" placeholder="Calories (kcal)">
           </div>
           <div class="uk-margin-small">
             <textarea type="text" class="uk-textarea" placeholder="Notes" style="resize:none"></textarea>
           </div>
-          <button class="uk-button uk-button-default">Add Calorie Intake</button>
+          <button id='submit-button' class="uk-button uk-button-default">Add Calorie Intake</button>
         </div>
       </form>
 
       <ul id="calories-list" class="uk-list uk-list-striped">
-        <li class="calories-list-item">
+        <!-- <li class="calories-list-item">
           <div class="uk-grid">
             <div class="uk-width-1-6">
               <strong>400</strong>
@@ -114,7 +114,7 @@
             <a class="edit-button" uk-icon="icon: pencil" uk-toggle="target: #edit-form-container"></a>
             <a class="delete-button" uk-icon="icon: trash"></a>
           </div>
-        </li>
+        </li> -->
       </ul>
     </div>
   </main>
@@ -126,12 +126,12 @@
         <h3>Edit calorie intake:</h3>
         <div>
           <div class="uk-margin-small">
-            <input type="number" class="uk-input" min="0" placeholder="Calories (kcal)">
+            <input id='edit-calorie' type="number" class="uk-input" min="0" placeholder="Calories (kcal)">
           </div>
           <div class="uk-margin-small">
-            <textarea type="text" class="uk-textarea" placeholder="Notes" style="resize:none"></textarea>
+            <textarea id='edit-note' type="text" class="uk-textarea" placeholder="Notes" style="resize:none"></textarea>
           </div>
-          <button class="uk-button uk-button-default">Update Entry</button>
+          <button id='edit-submit' class="uk-button uk-button-default">Update Entry</button>
         </div>
       </form>
     </div>
